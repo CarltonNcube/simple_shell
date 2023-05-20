@@ -6,7 +6,6 @@
  * @src: source of copy
  * Return: pointer to beginnig of destination string
  */
-
 char *_strcpy(char *dest, const char *src)
 {
 	char *dest_start = dest;
@@ -16,5 +15,6 @@ char *_strcpy(char *dest, const char *src)
 		*dest++ = *src++;
 	}
 	*dest = '\0';
+
 	return (dest_start);
 }

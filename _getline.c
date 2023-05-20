@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * _getline - read an entire line from stream
  * @lineptr: buffer containing text
@@ -20,11 +21,13 @@ int _getline(char **lineptr, size_t *n, FILE *stream)
 		*lineptr = NULL;
 		*n = 0;
 	}
-		if (!line)
+
+	if (!line)
 	{
 		return (-1);
 	}
-		while ((c = _getc(stream)) != EOF)
+
+	while ((c = _getc(stream)) != EOF)
 	{
 		if (i >= size - 1)
 		{

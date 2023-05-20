@@ -6,7 +6,6 @@
  * @string2: second string
  * Return: Difference between the strings
  */
-
 int _strcmp(const char *string1, const char *string2)
 {
 	int i = 0;
@@ -19,6 +18,7 @@ int _strcmp(const char *string1, const char *string2)
 			return (0);
 		i++;
 	}
+
 	/* Difference between the stringss */
 	return (string1[i] - string2[i]);
 }

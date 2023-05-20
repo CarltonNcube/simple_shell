@@ -5,7 +5,6 @@
  * @args: pointer to arguments
  * Return: void
  */
-
 void execute_command(char **args)
 {
 	pid_t pid;
@@ -13,6 +12,7 @@ void execute_command(char **args)
 	char error_msg[MAX_INPUT];
 
 	pid = fork();
+
 	if (pid == 0) /* Child process */
 	{
 		execve(args[0], args, environ);

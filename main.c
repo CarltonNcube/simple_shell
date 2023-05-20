@@ -12,7 +12,6 @@ int main(int argc, __attribute__((unused))char **argv)
 	size_t input_size = 0;
 	char *args[MAX_ARGS];
 	int interactive;
-	int fd;
 
 	interactive = isatty(STDIN_FILENO);
 	signal(SIGINT, sigint_handler);
@@ -33,17 +32,6 @@ int main(int argc, __attribute__((unused))char **argv)
 		{
 			if (_strcmp(args[0], "exit") == 0)
 				handle_exit(args);
-else if (_strcmp(args[0], "setenv") == 0)
-	{
-		fd = _setenv(args[1], args[2]);
-		if (fd == -1)
-		{
-			perror("setenv");
-			exit(-1);
-		}
-		/* Set environment variable */
-	}
-
 			else if (is_builtin_command(args[0]))
 				run_builtin_command(args);
 			else

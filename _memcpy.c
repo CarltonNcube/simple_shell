@@ -7,7 +7,6 @@
  * @n: bytes of data from source buffer
  * Return: void
  */
-
 void *_memcpy(void *dest, const void *src, size_t n)
 {
 	char *d = (char *)dest;
