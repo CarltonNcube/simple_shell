@@ -6,7 +6,6 @@
  * @reject: charcters to reject
  * Return: length of initial substring
  */
-
 size_t _strcspn(const char *s, const char *reject)
 {
 	size_t len = 0;

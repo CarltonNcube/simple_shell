@@ -6,7 +6,6 @@
  * @args: individual strings
  * Return: number of arguments in array
  */
-
 int parse_command(char *input, char **args)
 {
 	int argc = 0;
@@ -19,5 +18,6 @@ int parse_command(char *input, char **args)
 		arg = _strtok(NULL, " \t\n");
 	}
 	args[argc] = NULL;
+
 	return (argc);
 }
