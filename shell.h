@@ -8,16 +8,17 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include <limits.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
 #define MAX_ARGS 10
-#define MAX_INPUT 1024
 #define BUFFER_SIZE 256
 
 extern char **environ;
 
+/* Function prototypes */
 void sigint_handler(int sig);
 void run_external_command(char **args);
 void run_builtin_command(char **args);
@@ -39,7 +40,11 @@ char *_strtok(char *str, const char *delim);
 size_t _strcspn(const char *s, const char *reject);
 int _atoi(const char *str);
 void handle_exit(char **args);
+char *_strncpy(char *destination, const char *source, size_t num);
+char *_getenv(const char *name);
 int _setenv(const char *name, const char *value);
 int _unsetenv(const char *name);
+void change_directory(const char *path);
+char *get_current_directory();
 
 #endif /* SHELL.H */
