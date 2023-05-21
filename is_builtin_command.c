@@ -7,5 +7,8 @@
  */
 int is_builtin_command(char *command)
 {
-	return (_strcmp(command, "exit") == 0);
+	return (_strcmp(command, "exit") == 0 || 
+		_strcmp(command, "setenv") == 0 ||
+		_strcmp(command, "unsetenv") == 0 ||
+		_strcmp(command, "cd") == 0);
 }
