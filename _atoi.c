@@ -18,7 +18,12 @@ int _atoi(const char *str)
 	if (*str == '+' || *str == '-')
 	{
 		if (*str == '-')
+		{
 			sign = -1;
+<<<<<<< HEAD
+		}
+=======
+>>>>>>> 2f95262541ce4b043606f7d3cb5c239209a432b1
 		str++;
 	}
 
