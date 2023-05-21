@@ -19,7 +19,9 @@ int _unsetenv(const char *name)
 		free(environ[env_var_index]);
 			/* Shift remaining environment variables */
 			for (i = env_var_index; environ[i] != NULL; ++i)
+			{	
 				environ[i] = environ[i + 1];
+			}
 				return (0);
 		}
 		env_var_index++;
