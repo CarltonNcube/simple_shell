@@ -14,9 +14,12 @@ char *_strncpy(char *destination, const char *source, size_t num)
 	size_t i;
 
 	for (i = 0; i < num && *source != '\0'; i++)
+	{
 		*dest++ = *source++;
+		*dest = '\0';
+	}
+	for (; i < num; i++)
 		*dest++ = '\0';
 
-	for (; i < num; i++)
 	return (destination);
 }
