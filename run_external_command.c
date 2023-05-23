@@ -33,7 +33,7 @@ void run_external_command(char **args)
 	args_0_len = strlen(args[0]);
 	while (dir != NULL)
 	{
-		dir_len = strlen(dir)
+		dir_len = strlen(dir);
 			if (dir_len + args_0_len + 2 > MAX_INPUT)
 			{
 				write(STDERR_FILENO, "shell: command name too long\n", 29);
