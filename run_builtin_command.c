@@ -7,10 +7,8 @@
  */
 void run_builtin_command(char **args)
 {
-	if (_strcmp(args[0], "exit") == 0)/* Exit command */
-	{
-		exit(EXIT_SUCCESS);
-	}
+	if (_strcmp(args[0], "exit") == 0) /* Exit command */
+		handle_exit(args);
 	else if (_strcmp(args[0], "cd") == 0) /* CD command */
 	{
 		if (args[1] == NULL || _strcmp(args[1], "~") == 0)

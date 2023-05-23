@@ -20,7 +20,7 @@ void execute_command(char **args)
 		_strcpy(error_msg, "shell: ");
 		_strcat(error_msg, args[0]);
 		_strcat(error_msg, ": ");
-		_strcat(error_msg, strerror(errno));
+		/* _strcat(error_msg, strerror(errno)); */
 		_strcat(error_msg, "\n");
 		write(STDERR_FILENO, error_msg, _strlen(error_msg));
 		exit(EXIT_FAILURE);
@@ -28,7 +28,7 @@ void execute_command(char **args)
 	else if (pid < 0) /* Fork failed */
 	{
 		_strcpy(error_msg, "shell: fork: ");
-		_strcat(error_msg, strerror(errno));
+		/* _strcat(error_msg, strerror(errno)); */
 		_strcat(error_msg, "\n");
 		write(STDERR_FILENO, error_msg, _strlen(error_msg));
 	}

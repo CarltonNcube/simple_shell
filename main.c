@@ -9,13 +9,12 @@
 int main(int argc, __attribute__((unused))char **argv)
 {
 	char *input = NULL;
-	size_t input_size = 0;
 	char *args[MAX_ARGS];
 	int interactive;
-
+	char *command = NULL, *seperator = NULL, *token = NULL;
 	interactive = isatty(STDIN_FILENO);
 	signal(SIGINT, sigint_handler);
-
+	
 	while (1)
 	{
 		if (interactive)
@@ -23,22 +22,29 @@ int main(int argc, __attribute__((unused))char **argv)
 			write(STDOUT_FILENO, "$ ", 2);
 		}
 
-		if (_getline(&input, &input_size, stdin) == -1)
+		if (_getline(&input) == -1)
 			break;
-
-		argc = parse_command(input, args);
-
-		if (argc > 0)
+		command = input;
+		seperator = ";";
+		token = _strtok(command, seperator);
+		while (token != NULL)
 		{
-			if (_strcmp(args[0], "exit") == 0)
-				handle_exit(args);
-			else if (is_builtin_command(args[0]))
-				run_builtin_command(args);
-			else
-				run_external_command(args);
+			if (_strcmp(token, seperator) == 0)
+			{
+				token = _strtok(NULL, seperator);
+				continue;
+			}
+			argc = parse_command(token, args);
+			if (argc > 0)
+			{
+				if (is_builtin_command(args[0]))
+					run_builtin_command(args);
+				else
+					run_external_command(args);
+			}
+			token = _strtok(NULL, seperator);
 		}
 	}
 	free(input);
-
 	return (EXIT_SUCCESS);
 }

@@ -11,7 +11,7 @@ void handle_exit(char **args)
 	int exit_code;
 
 	if (args[1] == NULL)
-		exit(0);
+		exit(EXIT_SUCCESS);
 	else
 	{
 		exit_code = _atoi(args[1]);

@@ -34,7 +34,7 @@ int _strncmp(const char *string1, const char *string2, size_t num);
 size_t _strspn(const char *s, const char *accept);
 void *_memcpy(void *dest, const void *src, size_t n);
 char *_strcpy(char *dest, const char *src);
-int _getline(char **lineptr, size_t *n, FILE *stream);
+ssize_t _getline(char **lineptr);
 void *_realloc(void *ptr, size_t size);
 char *_strtok(char *str, const char *delim);
 size_t _strcspn(const char *s, const char *reject);
