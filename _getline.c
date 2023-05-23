@@ -1,58 +1,46 @@
 #include "shell.h"
 
 /**
- * _getline - read an entire line from stream
- * @lineptr: buffer containing text
- * @n: pointer length of stream
- * @stream: input stream
+ * _getline - reads a line from stdin into a dynamically allocated buffer
+ * @lineptr: pointer to buffer
  * Return: number of characters read
  */
-int _getline(char **lineptr, size_t *n, FILE *stream)
+ssize_t _getline(char **lineptr)
 {
-	size_t size = BUFFER_SIZE;
-	char *line = malloc(size * sizeof(char));
-	int c = EOF;
-	size_t i = 0;
-	char *new_line;
+	ssize_t size = 0;       /* Current size of the buffer */
+	ssize_t capacity = 0;   /* Current capacity of the buffer */
+	ssize_t bytesRead = 0;  /* Number of bytes read from stdin */
+	char c;
+	char *temp = NULL;
 
-	if (*lineptr)
+	while (1)
+	{
+	/* Check if buffer capacity needs to be increased */
+	if (size >= capacity)
+	{
+		capacity += 1024;
+		temp = _realloc(*lineptr, capacity);
+		if (temp == NULL)
+		{
+			free(*lineptr);
+			return (-1);  /* Memory allocation failed */
+		}
+		*lineptr = temp;
+	}
+	/* Read a single character from stdin */
+	bytesRead = read(STDIN_FILENO, &c, 1);
+	if (bytesRead == -1)
 	{
 		free(*lineptr);
-		*lineptr = NULL;
-		*n = 0;
+		return (-1);  /* Read error */
 	}
-
-	if (!line)
+	if (bytesRead == 0 || c == '\n')
 	{
-		return (-1);
+		(*lineptr)[size] = '\0';  /* Null-terminate the string */
+		break;
 	}
-
-	while ((c = _getc(stream)) != EOF)
-	{
-		if (i >= size - 1)
-		{
-			size *= 2;
-			new_line = _realloc(line, size * sizeof(char));
-			if (!new_line)
-			{
-				free(line);
-				return (-1);
-			}
-			line = new_line;
-		}
-		line[i++] = c;
-		if (c == '\n')
-		{
-			break;
-		}
+	(*lineptr)[size] = c;
+	size++;
 	}
-	if (i == 0)
-	{
-		free(line);
-		return (-1);
-	}
-	line[i] = '\0';
-	*lineptr = line;
-	*n = size;
-	return (i);
+	return (size);
 }
