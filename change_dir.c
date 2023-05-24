@@ -8,11 +8,11 @@
 
 void change_directory(const char *path)
 {
-	char *old_pwd = _getenv("PWD");		/* Current working directory */
+	char *old_pwd = _getenv("PWD");/* Current working directory */
 	char *new_pwd = NULL;
 
 	if (old_pwd)
-		_setenv("OLDPWD", old_pwd);	/* Update PWD with current */
+		_setenv("OLDPWD", old_pwd);/* Update PWD with current */
 
 	if (chdir(path) == 0)
 	{
@@ -20,8 +20,8 @@ void change_directory(const char *path)
 		if (new_pwd)
 			_setenv("PWD", new_pwd);
 		else
-			perror("cd"); /* Print error message */
+			perror("cd");/* Print error message */
 	}
 	else
-		perror("cd"); /* Print error message */
+		perror("cd");/* Print error message */
 }
