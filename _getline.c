@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * getline - reads a line from stdin into a dynamically allocated buffer
+ * _getline - reads a line from stdin into a dynamically allocated buffer
  * @lineptr: pointer to buffer
  * Return: number of characters read
  */
@@ -11,6 +11,8 @@ ssize_t _getline(char **lineptr)
 	ssize_t bytesRead = 0;  /* Number of bytes read from stdin */
 	char c;
 	char *temp = NULL;
+
+	*lineptr = NULL;
 	while (1)
 	{
 	/* Check if buffer capacity needs to be increased */
@@ -40,5 +42,8 @@ ssize_t _getline(char **lineptr)
 		(*lineptr)[size] = c;
 		size++;
 	}
+	free(*lineptr);
+	*lineptr = NULL;
+
 	return (size);
 }
