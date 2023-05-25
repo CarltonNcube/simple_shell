@@ -14,7 +14,6 @@ int _setenv(const char *name, const char *value)
 
 	if (existing_value != NULL)
 		return (0);
-	
 	name_len = _strlen(name);
 	value_len = _strlen(value);
 	new_env_var_len = name_len + value_len + 2;

@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
-#include <string.h>
 #include <errno.h>
 #include <limits.h>
 #include <sys/wait.h>
@@ -33,6 +32,7 @@ size_t _strlen(const char *str);
 int _strncmp(const char *string1, const char *string2, size_t num);
 size_t _strspn(const char *s, const char *accept);
 void *_memcpy(void *dest, const void *src, size_t n);
+void _memset(void *s, int c, size_t n);
 char *_strcpy(char *dest, const char *src);
 ssize_t _getline(char **lineptr);
 void *_realloc(void *ptr, size_t size);
