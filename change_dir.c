@@ -16,9 +16,12 @@ void change_directory(const char *path)
 
 	if (chdir(path) == 0)
 	{
-		new_pwd = get_current_directory();
-		if (new_pwd)
+		char cwd[PATH_MAX];
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
+		{	
+			new_pwd = get_current_directory();
 			_setenv("PWD", new_pwd);
+		}
 		else
 			perror("cd");/* Print error message */
 	}

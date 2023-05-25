@@ -14,7 +14,6 @@ int _setenv(const char *name, const char *value)
 
 	if (existing_value != NULL)
 		return (0);
-
 	name_len = _strlen(name);
 	value_len = _strlen(value);
 	new_env_var_len = name_len + value_len + 2;
@@ -36,7 +35,7 @@ int _setenv(const char *name, const char *value)
 				environ[env_var_index][name_len] == '=')
 		{
 			/* Variable already exists, update it */
-			free(new_env_var);
+			environ[env_var_index] = new_env_var;
 			return (0);
 		}
 		env_var_index++;

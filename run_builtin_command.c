@@ -15,12 +15,14 @@ void run_builtin_command(char **args)
 		{
 			/* Change to HOME directory */
 			char *home_dir = _getenv("HOME");
+
 			change_directory(home_dir);
 		}
 		else if (_strcmp(args[1], "-") == 0)
 		{
 			/* Change to previous directory */
 			char *prev_dir = _getenv("OLDPWD");
+
 			change_directory(prev_dir);
 		}
 		else /* Change to specified directory */
