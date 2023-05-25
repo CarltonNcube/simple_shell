@@ -11,8 +11,10 @@ int main(int argc, __attribute__((unused)) char **argv)
 	char input[MAX_ARGS], *start = NULL, *end = NULL;
 	char c, *args[MAX_ARGS];
 	int interactive, input_index;
+	ssize_t bytes_read;
 
 	interactive = isatty(STDIN_FILENO);
+	signal(SIGINT, sigint_handler);
 	while (1)
 	{
 		/* Reset input buffer and index */
@@ -21,19 +23,28 @@ int main(int argc, __attribute__((unused)) char **argv)
 			write(STDOUT_FILENO, "$ ", 2);
 		/* Read input character by character */
 		input_index = 0;
-		while (read(STDIN_FILENO, &c, 1) == 1)
+		while ((bytes_read = read(STDIN_FILENO, &c, 1)) > 0)
 		{
 			if (c == '\n')
 				break;
 			input[input_index++] = c;
 		}
 		/* Exit loop if reached end-of-file */
-		if (input_index == 0)
+		if (bytes_read <= 0)
 		{
-			if (!interactive)
-				break;
+			if (bytes_read == 0)
+			{
+				if (interactive)
+					write(STDOUT_FILENO, "\n", 1);
+				break; /* End-of-file reached */
+			}
+			else if (errno == EINTR)
+				continue; /* Signal interrupt, continue reading */
 			else
+			{
+				perror("read");
 				continue;
+			}
 		}
 		/* Trim leading whitespace from the input */
 		start = input;
