@@ -14,7 +14,7 @@ int main(int argc, __attribute__((unused)) char **argv)
 	ssize_t bytes_read;
 
 	interactive = isatty(STDIN_FILENO);
-	signal(SIGINT, sigint_handler);
+	/* signal(SIGINT, sigint_handler); */
 	while (1)
 	{
 		/* Reset input buffer and index */

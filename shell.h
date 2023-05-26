@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#define MAX_ARGS 10
+#define MAX_ARGS 1024
 #define BUFFER_SIZE 256
 
 extern char **environ;
