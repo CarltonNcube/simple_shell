@@ -6,18 +6,27 @@
  */
 char *get_current_directory()
 {
-	char *cwd = (char *) malloc(256);
+	char *cwd = NULL;
+	size_t size = 256; /* Initial buffer size */
 
-	if (cwd != NULL)
+	while (1)
 	{
-		if (getcwd(cwd, PATH_MAX) != NULL)
-			return (cwd);
-		else
+		cwd = (char *)malloc(size);
+		if (cwd == NULL)
 		{
-			perror("cwd");
-			free(cwd);
+			perror("malloc");
+			return (NULL);
 		}
-	}
+		if (getcwd(cwd, size) != NULL)
+			return (cwd);
 
+		free(cwd);
+		if(errno != ERANGE)
+		{
+			perror("getcwd");
+			return (NULL);
+		}
+		size *= 2; /* Double the buffer size for next attempt */
+	}
 	return (NULL);
 }
