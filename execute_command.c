@@ -17,20 +17,21 @@ void execute_command(char **args)
 	{
 		execve(args[0], args, environ);
 		/* If execve returns, it must have failed */
-		_strcpy(error_msg, "shell: ");
+		_strcpy(error_msg, "./hsh: ");
 		_strcat(error_msg, args[0]);
 		_strcat(error_msg, ": ");
 		/* _strcat(error_msg, strerror(errno)); */
 		_strcat(error_msg, "\n");
 		write(STDERR_FILENO, error_msg, _strlen(error_msg));
-		exit(EXIT_FAILURE);
+		exit(2);
 	}
 	else if (pid < 0) /* Fork failed */
 	{
-		_strcpy(error_msg, "shell: fork: ");
+		_strcpy(error_msg, "./hsh: fork: ");
 		/* _strcat(error_msg, strerror(errno)); */
 		_strcat(error_msg, "\n");
 		write(STDERR_FILENO, error_msg, _strlen(error_msg));
+		exit(1);
 	}
 	else /* Parent process */
 	{

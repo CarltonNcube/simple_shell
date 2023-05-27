@@ -25,8 +25,10 @@ void run_external_command(char **args)
 	}
 	if (env_path == NULL)
 	{
-		write(STDERR_FILENO, "shell: PATH variable not set\n", 30);
-		return;
+		write(STDERR_FILENO, "./hsh: 1: ", 11);
+		write(STDERR_FILENO, args[0], _strlen(args[0]));
+		write(STDERR_FILENO, ": not found\n", 13);
+		exit(127);
 	}
 	path = _strdup(env_path);
 	dir = _strtok(path, ":");
@@ -36,9 +38,11 @@ void run_external_command(char **args)
 		dir_len = _strlen(dir);
 			if (dir_len + args_0_len + 2 > MAX_INPUT)
 			{
-				write(STDERR_FILENO, "shell: command name too long\n", 29);
+				write(STDERR_FILENO, "./hsh: 1: ", 11);
+				write(STDERR_FILENO, args[0], _strlen(args[0]));
+				write(STDERR_FILENO, ": not found\n", 13);
 				free(path);
-				return;
+				exit(127);
 			}
 		_memcpy(cmd, dir, dir_len);
 		cmd[dir_len] = '/';
@@ -65,9 +69,11 @@ void run_external_command(char **args)
 
 			if (cwd_len + 1 + args_0_len + 1 > MAX_INPUT)
 			{
-				write(STDERR_FILENO, "shell: command name too long\n", 29);
+				write(STDERR_FILENO, "./hsh: 1: ", 11);
+				write(STDERR_FILENO, args[0], _strlen(args[0]));
+				write(STDERR_FILENO, ": not found\n", 13);
 				free(path);
-				return;
+				exit(127);
 			}
 			cmd[0] = '\0';
 			_memcpy(cmd, cwd, cwd_len);
@@ -82,15 +88,17 @@ void run_external_command(char **args)
 				return;
 			}
 		}
-		write(STDERR_FILENO, "shell: command not found: ", 26);
+		write(STDERR_FILENO, "./hsh: 1: ", 11);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
-		write(STDERR_FILENO, "\n", 1);
+		write(STDERR_FILENO, ": not found\n", 13);
+		exit(127);
 	}
 	else
 	{
-		write(STDERR_FILENO, "shell: command not found: ", 26);
+		write(STDERR_FILENO, "./hsh: 1: ", 11);
 		write(STDERR_FILENO, args[0], _strlen(args[0]));
-		write(STDERR_FILENO, "\n", 1);
+		write(STDERR_FILENO, ": not found\n", 13);
+		exit(127);
 	}
 	free(path);
 	return;
