@@ -6,16 +6,18 @@
  */
 char *get_current_directory()
 {
-	char *cwd = (char *) malloc(PATH_MAX);
+	char *cwd = (char *) malloc(256);
 
 	if (cwd != NULL)
 	{
 		if (getcwd(cwd, PATH_MAX) != NULL)
 			return (cwd);
 		else
+		{
+			perror("cwd");
 			free(cwd);
+		}
 	}
-	free(cwd);
 
 	return (NULL);
 }
