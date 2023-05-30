@@ -16,7 +16,10 @@ void change_directory(const char *path)
 	{
 		new_pwd = get_current_directory();
 		if (new_pwd)
+		{
 			_setenv("PWD", new_pwd);
+			free(new_pwd);
+		}
 		else
 			perror("cd"); /* Print error message */
 	}
