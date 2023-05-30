@@ -15,13 +15,22 @@ void run_builtin_command(char **args)
 		{
 			/* Change to HOME directory */
 			char *home_dir = _getenv("HOME");
-
+			if (home_dir == NULL)
+			{
+				perror("cd: Home directory not found");
+				return;
+			}
 			change_directory(home_dir);
 		}
 		else if (_strcmp(args[1], "-") == 0)
 		{
 			/* Change to previous directory */
 			char *prev_dir = _getenv("OLDPWD");
+			if (prev_dir == NULL)
+			{
+				perror("cd: OLDPWD directory not found");
+				return;
+			}
 
 			change_directory(prev_dir);
 		}
